@@ -1,15 +1,3 @@
-# Dates don't work
+# Support for dates?
 
-**Type:** unclear
-
-I tried storing when each entry was created and TinyDB just crashes:
-
-```python
-from datetime import datetime
-from tinydb import TinyDB
-
-db = TinyDB('db.json')
-db.insert({'title': 'hello', 'created': datetime.now()})
-```
-
-Pretty much every app needs dates. Can TinyDB support them?
+Most of my records have a date or timestamp on them (created, due, last seen...) and TinyDB doesn't seem to like that at all, it just errors when I try to save them to my db file. I don't really want to convert everything back and forth by hand. Any chance TinyDB could handle dates properly?

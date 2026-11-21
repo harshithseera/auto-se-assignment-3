@@ -1,8 +1,6 @@
-# Feature request: `append` operation for list fields
+# Add an operation to append to a list field
 
-**Type:** feature
-
-`tinydb.operations` has `add`, `increment`, `set` etc., but nothing for lists. To add a tag to a document I currently have to read it, change the list and write the whole field back. I'd like:
+There's `add`, `increment`, `set` and friends in `tinydb.operations`, but nothing for lists, so adding a tag means reading the document, changing the list and writing it back. I'd love to just do:
 
 ```python
 from tinydb.operations import append
@@ -10,6 +8,4 @@ from tinydb.operations import append
 db.update(append('tags', 'urgent'), Query().id == 3)
 ```
 
-- If `tags` is a list, `'urgent'` is added to the end.
-- If the document has no `tags` field yet, it should be created as `['urgent']`.
-- If `tags` exists but isn't a list, I'd expect a `TypeError` rather than silently replacing my data.
+If the document doesn't have `tags` yet it'd be great if it just started a new list. And if `tags` is something other than a list, please raise a `TypeError` rather than quietly overwriting what's there.
