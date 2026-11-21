@@ -63,6 +63,16 @@ Still never exercised in a real run: the stage-1 stop on blocking questions (eve
 
 5/5 correct, and every defect was named. Output tokens: 4,356 with the ADR-012 prompt, against 6,071 with the ADR-008 prompt and 4,188 with `plain` on the same seeds.
 
+## Demo and trigger-test runs (workflow `7fd0104`, not part of the experiment)
+
+| Run | Issue | Actions run | PR | Review |
+|---|---|---|---|---|
+| **Recorded in the demo video** | [#44](https://github.com/harshithseera/tinydb/issues/44) | [44921830646](https://github.com/harshithseera/tinydb/actions/runs/44921830646) | [#45](https://github.com/harshithseera/tinydb/pull/45) | [approve](https://github.com/harshithseera/tinydb/pull/45#issuecomment-7065278150) |
+| Retake (first take, issue closed) | [#41](https://github.com/harshithseera/tinydb/issues/41) | [44917114805](https://github.com/harshithseera/tinydb/actions/runs/44917114805) | [#42](https://github.com/harshithseera/tinydb/pull/42) | [approve](https://github.com/harshithseera/tinydb/pull/42#issuecomment-7064597934) |
+| Comment-trigger test: exact `/autose` comment, no label (event `issue_comment`) | [#46](https://github.com/harshithseera/tinydb/issues/46) | [44922936359](https://github.com/harshithseera/tinydb/actions/runs/44922936359) | [#47](https://github.com/harshithseera/tinydb/pull/47) | [approve](https://github.com/harshithseera/tinydb/pull/47#issuecomment-7065440123) |
+
+Issue [#43](https://github.com/harshithseera/tinydb/issues/43) was a duplicate demo issue, closed without ever being labelled. No run.
+
 ## Excluded runs
 
 - In v1, five `autose` runs failed at the `gate` job because `/autose-review` comments matched the `/autose` prefix (runs 44856950970, 44856951325, 44856954483, 44856956094, 44856958451). Fixed in `7b5bf11` (ADR-011). No agent ran.
@@ -71,6 +81,6 @@ Still never exercised in a real run: the stage-1 stop on blocking questions (eve
 
 ## Token use
 
-- v2, stress runs and ADR-012 validation: 71 agent calls, 3,209,790 input tokens (including cache), 106,196 output tokens.
+- v2, stress runs, ADR-012 validation, demo runs and the comment-trigger test: 86 agent calls, 3,843,871 input tokens (including cache), 121,687 output tokens.
 - v1 (see `v1/runs.md`): 40 agent calls, 1,475,485 input, 48,622 output.
-- **Total for the assignment: 111 agent calls, 4,685,275 input tokens, 154,818 output tokens.** Each call's log is in `.autose/issue-N/usage.jsonl` on its branch, and every review comment ends with a usage line. Cost cap: a flat Claude Pro subscription with no API billing (ADR-006). A per-run token budget has applied since `7fd0104` (ADR-013).
+- **Total for the assignment: 126 agent calls, 5,319,356 input tokens, 170,309 output tokens.** Each call's log is in `.autose/issue-N/usage.jsonl` on its branch, and every review comment ends with a usage line. Cost cap: a flat Claude Pro subscription with no API billing (ADR-006). A per-run token budget has applied since `7fd0104` (ADR-013).
