@@ -23,3 +23,7 @@ Question: does the adversarial, evidence-based prompt catch more planted defects
 ## Metrics (per PR × variant)
 
 Verdict, catch (verdict ≠ approve and planted defect named in findings), false positive (S2 not approved), correct verdict class (code vs approach), output tokens, turns. Recorded in `results/results.csv`; review comments linked in `results/runs.md`.
+
+## Design change from the experiments and its validation (ADR-012)
+
+Experiment 2 showed the same accuracy at 33% fewer output tokens. As a result, ADR-012 replaced the ADR-008 prompt with a neutral prompt that keeps a short checklist (`prompts/review.md`). The old prompt is kept as the `adversarial` variant (`/autose-review variant=adversarial`). The new default was run once on each of the five v2 seeds to check that it doesn't lose accuracy. Results are in `results/runs.md`, under "ADR-012 validation".
