@@ -14,5 +14,6 @@
 | [010](ADR-010.md) | D10 Triggers | `autose` label or `/autose` comment by OWNER/MEMBER/COLLABORATOR; per-issue queue | Anyone may trigger; cancel-in-progress | Public fork; never kill a run between push and review | Superseded by 011 |
 | [011](ADR-011.md) | D10 Triggers (revised) | Exact `/autose` match; separate `/autose-review` workflow with no concurrency group | Prefix match plus one shared queue | `/autose-review` started full runs; queued variants would cancel each other | Accepted |
 | [012](ADR-012.md) | D8 Reviewer prompt (revised) | Neutral prompt plus a 4-item checklist; isolation unchanged | Adversarial stance plus evidence-per-finding rule (ADR-008) | Experiment 2: same accuracy (10/10) at 33% fewer tokens; checklist kept so reviews stay readable | Accepted |
+| [013](ADR-013.md) | D9 Token budget (extends 009) | Per-run budget of 40K output / 1.5M input tokens, checked before every builder call; on overrun, restore code to the starting commit and comment | Turn/call limits only | Tokens are the scarce Pro resource; real runs ranged from 4K to 18K output | Accepted |
 
 Superseded ADRs are kept; their replacement gets the next number and links back.
