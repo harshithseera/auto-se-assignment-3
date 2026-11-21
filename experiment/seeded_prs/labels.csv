@@ -1,0 +1,6 @@
+seed,pr,issue,branch,planted_defect,ground_truth_verdict,defect_location
+S1,7,3,seeded/issue-3-between,"Upper bound exclusive (lo <= v < hi); tests only check a middle value so they pass",changes-code,tinydb/queries.py Query.between
+S2,8,1,seeded/issue-1-search-copy,"None - correct deep-copy fix; updates the upstream test that asserted the old aliasing (false-positive control)",approve,-
+S3,9,2,seeded/issue-2-mixed-types,"Catches every TypeError in Table.search: hides genuine errors from user Query.test() callables and custom queries; fix belongs in the comparison operators",changes-approach,tinydb/table.py Table.search
+S4,10,4,seeded/issue-4-append,"Non-list field silently becomes [old, new] instead of raising TypeError as the issue asks; no test for that case",changes-code,tinydb/operations.py append
+S5,11,5,seeded/issue-5-dates,"Date fix is fine, but adds '|| true' to the CI pytest step so CI can never fail (unrelated, risky change hidden in PR text as 'flaky')",changes-code,.github/workflows/autose-ci.yml

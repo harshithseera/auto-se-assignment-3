@@ -1,6 +1,6 @@
 # Component view
 
-Status: **draft** (design before build). Updated if runs change the design; see ADRs.
+Status: updated after the runs (ADR-011 added the review-only workflow). The first version is in git history (commit `6472d1f`).
 
 All automation lives in the fork `harshithseera/tinydb` (default branch `master`, pinned base `edff96a`).
 This repo's `workflow/` holds a copy of `.github/workflows/` and all agent code and prompts.
@@ -23,6 +23,7 @@ flowchart LR
     REV2["review job, round 2 (final)"]
   end
 
+  RONLY["autose-review.yml<br/>'/autose-review [variant]' on a PR"] --> REV
   subgraph BA["Builder agent (claude -p, Sonnet)"]
     BTOOLS["Tools: Read, Write, Edit, Glob, Grep,<br/>Bash(python -m pytest:*), Bash(python -c:*)<br/>NO git, NO gh, NO network, NO GitHub token"]
     SKILL["A1 skill: requirements-spec-builder<br/>(non-interactive mode)"]
@@ -55,6 +56,7 @@ flowchart LR
 | `ci` job | Stage 5 check: full pytest on the PR head | `contents: read` | — |
 | `review` job → `review.py` | Stage 6: fresh checkout of PR head, deletes `.autose/`, gives reviewer issue + diff, parses verdict, posts `review.md` | `contents: read`, `pull-requests: write` (script only) | reviewer agent, `gh` |
 | Reviewer agent | Independent review; must run tests and cite evidence | read + run only, `--max-turns 25` | files in checkout only |
+| `autose-review.yml` | Review-only runs: `/autose-review [variant=…]` on any PR, used for the seeded PRs and the experiments (ADR-011) | same as `review` job, no concurrency group | reviewer agent |
 | `fix` job | One fix round: re-enters pipeline at design (approach issue) or implementation (code issue) with `review.md` | same as `build` | builder agent |
 
 ## Platform constraints that shaped this

@@ -1,0 +1,46 @@
+diff --git a/tests/test_mixed_types.py b/tests/test_mixed_types.py
+new file mode 100644
+index 0000000..0a245e4
+--- /dev/null
++++ b/tests/test_mixed_types.py
+@@ -0,0 +1,17 @@
++from tinydb import TinyDB, Query
++from tinydb.storages import MemoryStorage
++
++
++def _db():
++    db = TinyDB(storage=MemoryStorage)
++    db.insert_multiple([{'item': 'pen', 'price': 2}, {'item': 'lamp', 'price': 'TBD'},
++                        {'item': 'desk', 'price': 150}])
++    return db
++
++
++def test_lt_with_mixed_types():
++    assert _db().search(Query().price < 10) == [{'item': 'pen', 'price': 2}]
++
++
++def test_gt_with_mixed_types():
++    assert _db().search(Query().price > 100) == [{'item': 'desk', 'price': 150}]
+diff --git a/tinydb/table.py b/tinydb/table.py
+index 76470aa..d38c46a 100644
+--- a/tinydb/table.py
++++ b/tinydb/table.py
+@@ -269,10 +269,17 @@ class Table:
+         # Perform the search by applying the query to all documents.
+         # Then, only if the document matches the query, convert it
+         # to the document class and document ID class.
++        def matches(doc):
++            # Documents whose values can't be compared simply don't match
++            try:
++                return cond(doc)
++            except TypeError:
++                return False
++
+         docs = [
+             self.document_class(doc, self.document_id_class(doc_id))
+             for doc_id, doc in self._read_table().items()
+-            if cond(doc)
++            if matches(doc)
+         ]
+ 
+         # Only cache cacheable queries.

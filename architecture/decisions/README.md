@@ -11,6 +11,7 @@
 | [007](ADR-007.md) | D7 Checks | All deterministic checks in code; script writes test report | LLM-as-judge | Reliable and reproducible; agent can't grade itself | Accepted |
 | [008](ADR-008.md) | D8 Reviewer independence | Separate read-only job, withheld artifacts, adversarial prompt, evidence rule | Isolation only with default prompt | Make blanket approval structurally hard; measured with seeded PRs | Accepted |
 | [009](ADR-009.md) | D9 Safety & failures | Turn/time/retry budgets; untrusted-text tags; capability removal | Input filtering / sandboxes | Holds even if an injection succeeds | Accepted |
-| [010](ADR-010.md) | D10 Triggers | `autose` label or `/autose` comment by OWNER/MEMBER/COLLABORATOR; per-issue queue | Anyone may trigger; cancel-in-progress | Public fork; never kill a run between push and review | Accepted |
+| [010](ADR-010.md) | D10 Triggers | `autose` label or `/autose` comment by OWNER/MEMBER/COLLABORATOR; per-issue queue | Anyone may trigger; cancel-in-progress | Public fork; never kill a run between push and review | Superseded by 011 |
+| [011](ADR-011.md) | D10 Triggers (revised) | Exact `/autose` match; separate `/autose-review` workflow with no concurrency group | Prefix match plus one shared queue | `/autose-review` started full runs; queued variants would cancel each other | Accepted |
 
 Superseded ADRs are kept; their replacement gets the next number and links back.
